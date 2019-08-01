@@ -45,7 +45,6 @@ class DivideDotaDataset(object):
 
         self._main()
 
-
     def _load_txt(self, label_name='P0000.txt'):
         boxes_list = []
         bbox_p1_p2 = []
@@ -55,7 +54,6 @@ class DivideDotaDataset(object):
         y_idx = (1, 3, 5, 7)
         with open(self.gt_path + label_name, 'r') as f:
             idx = 0
-
             for line in f:
                 if line is '\n':
                     continue
@@ -76,9 +74,7 @@ class DivideDotaDataset(object):
                         bbox_large.append(line)
                     else:
                         bbox_small.append(line)
-
                 idx += 1
-
         return boxes_list, bbox_p1_p2, bbox_large, bbox_small
 
     def _create_newlabel(self, bbox, lb_type='s', label_name='P0000.txt'):
@@ -86,14 +82,11 @@ class DivideDotaDataset(object):
         if not os.path.isdir(file_dir):
             os.mkdir(file_dir)
         with open(file_dir + '/' + label_name, 'a') as f:
-
             print(self.label_type[lb_type], bbox)
             for line in bbox:
                 print(line)
                 str1 = ' '.join('%s' % item for item in line)
                 str1 += '\n'
-                if len(line) == 0:
-                    raise Exception('fuck')
                 f.write(str1)
 
     def _main(self):
